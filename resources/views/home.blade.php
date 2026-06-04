@@ -22,17 +22,10 @@
     ];
 @endphp
 
-@php
-     $heroImages = [
-        asset('images/home/hero-1.jpg'),
-        asset('images/home/hero-2.jpg'),
-        asset('images/home/hero-3.jpg'),
-        asset('images/home/hero-4.jpg'),
-        asset('images/home/hero-5.jpg'),
-    ];
-@endphp
-
 <section class="home-hero-v3 home-reveal">
+    <canvas id="hero-particles"></canvas>
+    <div class="hero-orb hero-orb--1"></div>
+    <div class="hero-orb hero-orb--2"></div>
     <div class="site-wrap">
         <div class="home-hero-v3__head">
             <p class="home-hero-v3__eyebrow home-reveal home-reveal--delay-1">
@@ -41,7 +34,7 @@
 
             <h1 class="home-hero-v3__title home-reveal home-reveal--delay-2">
                 Siti web e marketing
-                <span>pensati per far crescere il business.</span>
+                <span>pensati per far crescere il tuo business.</span>
             </h1>
 
             <p class="home-hero-v3__text home-reveal home-reveal--delay-3">
@@ -58,22 +51,15 @@
                     Scopri i servizi
                 </a>
             </div>
-        </div>
-    </div>
 
-    <div class="home-hero-v3__visual-wrap">
-       <div class="hero-stack hero-stack--reveal">
-           @for($i = 0; $i < 5; $i++)
-    <article class="hero-stack__card hero-stack__card--{{ $i + 1 }}">
-                    <div class="hero-stack__media">
-                        @if(!empty($heroImages[$i]))
-                            <img src="{{ $heroImages[$i] }}" alt="Anteprima progetto">
-                        @else
-                            <div class="hero-stack__placeholder"></div>
-                        @endif
-                    </div>
-                </article>
-            @endfor
+            <div class="hero-tags">
+                <span class="hero-tag">Web Design</span>
+                <span class="hero-tag">Laravel</span>
+                <span class="hero-tag">SEO</span>
+                <span class="hero-tag">Google Ads</span>
+                <span class="hero-tag">Performance</span>
+                <span class="hero-tag">Strategia digitale</span>
+            </div>
         </div>
     </div>
 </section>
@@ -244,8 +230,6 @@
                             <p class="home-work-main__client">{{ $mainProject->client_name }}</p>
                         @endif
 
-                      
-
                         <div class="home-work-main__actions">
                             <a href="{{ route('projects.show', $mainProject) }}" class="home-work-main__link">
                                 Scopri il progetto
@@ -263,7 +247,8 @@
                 @if($secondaryProjects->count())
                     <div class="home-work-grid">
                         @foreach($secondaryProjects as $project)
-<article class="home-work-card reveal-fan {{ $loop->odd ? 'reveal-fan--left' : 'reveal-fan--right' }} reveal-fan--delay-3">                                <a href="{{ route('projects.show', $project) }}" class="home-work-card__media">
+                            <article class="home-work-card reveal-fan {{ $loop->odd ? 'reveal-fan--left' : 'reveal-fan--right' }} reveal-fan--delay-3">
+                                <a href="{{ route('projects.show', $project) }}" class="home-work-card__media">
                                     @if($project->cover_image)
                                         <img
                                             src="{{ asset('storage/' . $project->cover_image) }}"
@@ -288,8 +273,6 @@
                                     @if($project->client_name)
                                         <p class="home-work-card__client">{{ $project->client_name }}</p>
                                     @endif
-
-        
 
                                     <a href="{{ route('projects.show', $project) }}" class="home-work-card__link">
                                         Scopri il progetto
