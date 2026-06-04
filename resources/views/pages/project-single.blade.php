@@ -3,118 +3,125 @@
 @section('title', $project->title)
 
 @section('content')
-@php
-    $paragraphs = $project->content
-        ? array_values(array_filter(array_map('trim', preg_split('/\r\n\r\n|\n\n|\r\r/', trim($project->content)))))
-        : [];
-
-    $introParagraph = $paragraphs[0] ?? null;
-    $bodyParagraphs = array_slice($paragraphs, 1);
-@endphp
 
 <article class="case-project">
     <div class="container case-project__container">
+
         <a href="{{ route('projects.index') }}" class="case-project__back">
             ← Torna ai progetti
         </a>
 
         <header class="case-project__hero">
-            <div class="case-project__hero-copy">
-                @if($project->category)
-                    <span class="case-project__kicker">{{ $project->category }}</span>
-                @endif
-
-                <h1 class="case-project__title">{{ $project->title }}</h1>
-
-                @if($project->excerpt)
-                    <p class="case-project__lead">{{ $project->excerpt }}</p>
-                @endif
-            </div>
+            @if($project->category)
+                <span class="case-project__kicker">{{ $project->category }}</span>
+            @endif
+            <h1 class="case-project__title">{{ $project->title }}</h1>
+            @if($project->excerpt)
+                <p class="case-project__lead">{{ $project->excerpt }}</p>
+            @endif
         </header>
 
         @if($project->cover_image)
-            <section class="case-project__cover-section">
-                <figure class="case-project__cover">
-                    <img src="{{ asset('storage/' . $project->cover_image) }}" alt="{{ $project->title }}">
-                </figure>
-            </section>
+            <figure class="case-project__cover">
+                <img src="{{ asset('storage/' . $project->cover_image) }}" alt="{{ $project->title }}">
+            </figure>
         @endif
 
-        <section class="case-project__summary">
-            <div class="case-project__summary-label">
-                <span class="case-project__section-label">Dettagli progetto</span>
-            </div>
-
-            <div class="case-project__summary-grid">
-                @if($project->client_name)
-                    <div class="case-project__summary-card">
-                        <span>Cliente</span>
-                        <strong>{{ $project->client_name }}</strong>
-                    </div>
-                @endif
-
-                @if($project->category)
-                    <div class="case-project__summary-card">
-                        <span>Ambito</span>
-                        <strong>{{ $project->category }}</strong>
-                    </div>
-                @endif
-
-                @if($project->project_url)
-                    <div class="case-project__summary-card">
-                        <span>Sito</span>
-                        <a href="{{ $project->project_url }}" target="_blank" rel="noopener noreferrer">
-                            Visita il progetto
-                        </a>
-                    </div>
-                @endif
-            </div>
-        </section>
-
-        @if($introParagraph || count($bodyParagraphs))
-            <section class="case-project__story">
-                <div class="case-project__story-head">
-                    <span class="case-project__section-label">Panoramica</span>
+        <div class="case-project__meta">
+            @if($project->client_name)
+                <div class="case-project__meta-item">
+                    <span class="case-project__meta-label">Cliente</span>
+                    <strong>{{ $project->client_name }}</strong>
                 </div>
+            @endif
+            @if($project->category)
+                <div class="case-project__meta-item">
+                    <span class="case-project__meta-label">Ambito</span>
+                    <strong>{{ $project->category }}</strong>
+                </div>
+            @endif
+            @if($project->project_url)
+                <div class="case-project__meta-item">
+                    <span class="case-project__meta-label">Sito</span>
+                    <a href="{{ $project->project_url }}" target="_blank" rel="noopener noreferrer">
+                        Visita il progetto →
+                    </a>
+                </div>
+            @endif
+        </div>
 
-                <div class="case-project__story-content">
-                    @if($introParagraph)
-                        <p class="case-project__story-intro">{!! nl2br(e($introParagraph)) !!}</p>
-                    @endif
+        @php $sectionNum = 1; @endphp
 
-                    @if(count($bodyParagraphs))
-                        <div class="case-project__story-body">
-                            @foreach($bodyParagraphs as $paragraph)
-                                <p>{!! nl2br(e($paragraph)) !!}</p>
-                            @endforeach
-                        </div>
-                    @endif
+        @if($project->challenge)
+            <section class="case-section case-section--reveal">
+                <div class="case-section__aside">
+                    <span class="case-section__number">0{{ $sectionNum }}</span>
+                    <span class="case-section__label">La sfida</span>
+                </div>
+                <div class="case-section__body">
+                    <div class="case-section__bar"></div>
+                    <div class="case-section__text">{!! nl2br(e($project->challenge)) !!}</div>
+                </div>
+            </section>
+            @php $sectionNum++; @endphp
+        @endif
+
+        @if($project->approach)
+            <section class="case-section case-section--reveal">
+                <div class="case-section__aside">
+                    <span class="case-section__number">0{{ $sectionNum }}</span>
+                    <span class="case-section__label">Il nostro approccio</span>
+                </div>
+                <div class="case-section__body">
+                    <div class="case-section__bar"></div>
+                    <div class="case-section__text">{!! nl2br(e($project->approach)) !!}</div>
+                </div>
+            </section>
+            @php $sectionNum++; @endphp
+        @endif
+
+        @if($project->result)
+            <section class="case-section case-section--reveal">
+                <div class="case-section__aside">
+                    <span class="case-section__number">0{{ $sectionNum }}</span>
+                    <span class="case-section__label">Il risultato</span>
+                </div>
+                <div class="case-section__body">
+                    <div class="case-section__bar"></div>
+                    <div class="case-section__text">{!! nl2br(e($project->result)) !!}</div>
+                </div>
+            </section>
+            @php $sectionNum++; @endphp
+        @endif
+
+        @if($project->content)
+            <section class="case-section case-section--reveal">
+                <div class="case-section__aside">
+                    <span class="case-section__number">0{{ $sectionNum }}</span>
+                    <span class="case-section__label">Note</span>
+                </div>
+                <div class="case-section__body">
+                    <div class="case-section__bar"></div>
+                    <div class="case-section__text">{!! nl2br(e($project->content)) !!}</div>
                 </div>
             </section>
         @endif
 
         @if($project->images->count())
-            <section class="case-project__gallery-section">
-                <div class="case-project__gallery-head">
-                    <span class="case-project__section-label">Gallery</span>
-                    <h2>Dettagli e sviluppo visivo del progetto</h2>
+            <section class="case-gallery case-section--reveal">
+                <div class="case-gallery__head">
+                    <span class="case-project__meta-label">Gallery</span>
+                    <h2>Dettagli e sviluppo visivo</h2>
                 </div>
-
-                <div class="case-project__gallery">
-                    @foreach($project->images as $image)
-                        <figure class="case-project__gallery-item">
+                <div class="case-gallery__grid">
+                    @foreach($project->images as $i => $image)
+                        <figure class="case-gallery__item {{ $loop->first ? 'case-gallery__item--full' : '' }}">
                             @if($image->media_type === 'video' && $image->video_path)
-                                <video
-                                    class="case-project__gallery-video js-autoplay-video"
-                                    loop
-                                    muted
-                                    playsinline
-                                    preload="metadata"
-                                >
+                                <video class="js-autoplay-video" loop muted playsinline preload="metadata">
                                     <source src="{{ asset('storage/' . $image->video_path) }}">
                                 </video>
                             @else
-                                <img src="{{ asset('storage/' . $image->image_path) }}" alt="{{ $project->title }}">
+                                <img src="{{ asset('storage/' . $image->image_path) }}" alt="{{ $project->title }}" loading="lazy">
                             @endif
                         </figure>
                     @endforeach
@@ -123,53 +130,52 @@
         @endif
 
         @if($project->project_url)
-            <section class="case-project__final-cta">
-                <div class="case-project__final-cta-box">
-                    <span class="case-project__section-label">Progetto online</span>
-                    <h2>Vuoi vedere il progetto online?</h2>
-                    <p>Esplora il sito e guarda il risultato finale pubblicato.</p>
-                    <a href="{{ $project->project_url }}" target="_blank" rel="noopener noreferrer" class="case-project__cta">
-                        Apri il sito
+            <section class="case-cta case-section--reveal">
+                <div class="case-cta__box">
+                    <div class="case-cta__text">
+                        <span class="case-project__meta-label">Progetto online</span>
+                        <h2>Vuoi vedere il progetto online?</h2>
+                        <p>Esplora il sito e guarda il risultato finale pubblicato.</p>
+                    </div>
+                    <a href="{{ $project->project_url }}" target="_blank" rel="noopener noreferrer" class="case-cta__btn">
+                        Apri il sito →
                     </a>
                 </div>
             </section>
         @endif
+
     </div>
 </article>
 
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    const videos = document.querySelectorAll('.js-autoplay-video');
-
-    if (!videos.length) return;
-
-    const playVideo = (video) => {
-        const promise = video.play();
-        if (promise !== undefined) {
-            promise.catch(() => {});
-        }
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            const video = entry.target;
-
-            if (entry.isIntersecting && entry.intersectionRatio >= 0.45) {
-                playVideo(video);
-            } else {
-                video.pause();
+    const reveals = document.querySelectorAll('.case-section--reveal');
+    const revealObs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('is-visible');
+                revealObs.unobserve(e.target);
             }
         });
-    }, {
-        threshold: [0, 0.45, 0.75, 1]
-    });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => revealObs.observe(el));
 
-    videos.forEach((video) => {
-        video.pause();
-        observer.observe(video);
-    });
+    const videos = document.querySelectorAll('.js-autoplay-video');
+    if (videos.length) {
+        const vidObs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting && e.intersectionRatio >= 0.45) {
+                    e.target.play().catch(() => {});
+                } else {
+                    e.target.pause();
+                }
+            });
+        }, { threshold: [0, 0.45, 0.75, 1] });
+        videos.forEach(v => { v.pause(); vidObs.observe(v); });
+    }
 });
 </script>
 @endpush
+
 @endsection
