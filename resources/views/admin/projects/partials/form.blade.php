@@ -24,8 +24,23 @@
         <textarea name="excerpt" id="excerpt" rows="3">{{ old('excerpt', $project->excerpt ?? '') }}</textarea>
     </div>
 
-    <div class="form-group form-group--full">
-        <label for="content">Contenuto</label>
+   <div class="form-group form-group--full">
+    <label for="challenge">La sfida</label>
+    <textarea name="challenge" id="challenge" rows="4" placeholder="Descrivi il problema o la sfida del cliente...">{{ old('challenge', $project->challenge ?? '') }}</textarea>
+</div>
+
+<div class="form-group form-group--full">
+    <label for="approach">Il nostro approccio</label>
+    <textarea name="approach" id="approach" rows="4" placeholder="Come hai affrontato il progetto...">{{ old('approach', $project->approach ?? '') }}</textarea>
+</div>
+
+<div class="form-group form-group--full">
+    <label for="result">Il risultato</label>
+    <textarea name="result" id="result" rows="4" placeholder="Cosa ha ottenuto il cliente...">{{ old('result', $project->result ?? '') }}</textarea>
+</div>
+
+<div class="form-group form-group--full">
+    <label for="content">Contenuto (note aggiuntive)</label>
         <textarea name="content" id="content" rows="8">{{ old('content', $project->content ?? '') }}</textarea>
     </div>
 
