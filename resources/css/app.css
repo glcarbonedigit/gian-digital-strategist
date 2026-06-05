@@ -8737,6 +8737,11 @@ body.home-brand-active.site-body {
     padding-bottom: max(24px, env(safe-area-inset-bottom));
 }
 
+.sidebar.is-open {
+    transform: translateX(0);
+}
+
+
 .sidebar__logo {
     display: flex;
     align-items: center;
