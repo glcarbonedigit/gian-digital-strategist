@@ -8860,3 +8860,17 @@ body.home-brand-active.site-body {
     border-top: 1px solid var(--line);
     flex-shrink: 0;
 }
+/* =========================================
+   FIX OVERFLOW HOME
+========================================= */
+.home-hero-v3,
+.home-benefits-v2,
+.home-tools,
+.home-featured,
+.home-cta {
+    overflow-x: hidden !important;
+}
+
+.home-tools__marquee {
+    overflow: hidden !important;
+}
