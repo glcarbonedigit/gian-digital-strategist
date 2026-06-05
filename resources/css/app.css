@@ -8828,3 +8828,19 @@ body.home-brand-active.site-body {
         display: none;
     }
 }
+/* =========================================
+   HEADER MOBILE — BURGER A DESTRA
+========================================= */
+@media (max-width: 991px) {
+    .site-header__inner {
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        min-height: 68px !important;
+        padding: 0 !important;
+    }
+
+    .site-logo img {
+        height: 44px !important;
+    }
+}
