@@ -39,6 +39,8 @@
         Area admin riservata
     </div>
 </footer>
-
+@stack('scripts')
+</body>
+</html>
 </body>
 </html>

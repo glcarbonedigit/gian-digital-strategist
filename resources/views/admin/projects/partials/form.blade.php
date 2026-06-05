@@ -24,24 +24,24 @@
         <textarea name="excerpt" id="excerpt" rows="3">{{ old('excerpt', $project->excerpt ?? '') }}</textarea>
     </div>
 
-   <div class="form-group form-group--full">
-    <label for="challenge">La sfida</label>
-    <textarea name="challenge" id="challenge" rows="4" placeholder="Descrivi il problema o la sfida del cliente...">{{ old('challenge', $project->challenge ?? '') }}</textarea>
-</div>
+    <div class="form-group form-group--full">
+        <label for="challenge">La sfida</label>
+        <textarea name="challenge" id="challenge" rows="4" class="wysiwyg" placeholder="Descrivi il problema o la sfida del cliente...">{{ old('challenge', $project->challenge ?? '') }}</textarea>
+    </div>
 
-<div class="form-group form-group--full">
-    <label for="approach">Il nostro approccio</label>
-    <textarea name="approach" id="approach" rows="4" placeholder="Come hai affrontato il progetto...">{{ old('approach', $project->approach ?? '') }}</textarea>
-</div>
+    <div class="form-group form-group--full">
+        <label for="approach">Il nostro approccio</label>
+        <textarea name="approach" id="approach" rows="4" class="wysiwyg" placeholder="Come hai affrontato il progetto...">{{ old('approach', $project->approach ?? '') }}</textarea>
+    </div>
 
-<div class="form-group form-group--full">
-    <label for="result">Il risultato</label>
-    <textarea name="result" id="result" rows="4" placeholder="Cosa ha ottenuto il cliente...">{{ old('result', $project->result ?? '') }}</textarea>
-</div>
+    <div class="form-group form-group--full">
+        <label for="result">Il risultato</label>
+        <textarea name="result" id="result" rows="4" class="wysiwyg" placeholder="Cosa ha ottenuto il cliente...">{{ old('result', $project->result ?? '') }}</textarea>
+    </div>
 
-<div class="form-group form-group--full">
-    <label for="content">Contenuto (note aggiuntive)</label>
-        <textarea name="content" id="content" rows="8">{{ old('content', $project->content ?? '') }}</textarea>
+    <div class="form-group form-group--full">
+        <label for="content">Contenuto (note aggiuntive)</label>
+        <textarea name="content" id="content" rows="8" class="wysiwyg">{{ old('content', $project->content ?? '') }}</textarea>
     </div>
 
     <div class="form-group">
@@ -77,7 +77,6 @@
                     alt="{{ $project->title }}"
                     class="admin-cover-preview__image"
                 >
-
                 <div class="admin-cover-preview__actions">
                     <button
                         type="submit"
@@ -108,7 +107,6 @@
 @if(!empty($project?->images) && $project->images->count())
     <div class="form-group admin-gallery-block">
         <label>Gallery attuale</label>
-
         <div class="admin-gallery-grid">
             @foreach($project->images as $image)
                 <div class="admin-gallery-card">
@@ -123,11 +121,9 @@
                             class="admin-gallery-card__image"
                         >
                     @endif
-
                     <div class="admin-gallery-card__meta">
                         <span>{{ $image->media_type === 'video' ? 'Video' : 'Immagine' }}</span>
                     </div>
-
                     <div class="admin-gallery-card__actions">
                         <button
                             type="submit"
@@ -143,3 +139,20 @@
         </div>
     </div>
 @endif
+
+{{-- TinyMCE WYSIWYG --}}
+@push('scripts')
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: 'textarea.wysiwyg',
+        language: 'it',
+        menubar: false,
+        plugins: 'lists link',
+        toolbar: 'bold italic underline | bullist numlist | link | removeformat',
+        height: 250,
+        branding: false,
+        promotion: false,
+    });
+</script>
+@endpush
