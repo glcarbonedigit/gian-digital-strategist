@@ -8721,6 +8721,7 @@ body.home-brand-active.site-body {
     right: 0;
     width: 300px;
     height: 100vh;
+    height: 100dvh; /* dynamic viewport height per iPhone */
     background: #ffffff;
     z-index: 101;
     transform: translateX(100%);
@@ -8728,15 +8729,12 @@ body.home-brand-active.site-body {
     box-shadow: -12px 0 40px rgba(17,17,17,0.10);
 }
 
-.sidebar.is-open {
-    transform: translateX(0);
-}
-
 .sidebar__inner {
     display: flex;
     flex-direction: column;
     height: 100%;
     padding: 24px;
+    padding-bottom: max(24px, env(safe-area-inset-bottom));
 }
 
 .sidebar__logo {
