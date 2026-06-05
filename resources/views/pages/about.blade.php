@@ -2,6 +2,9 @@
 
 @section('title', 'Chi sono | Gianluca Carbone')
 
+@section('meta_description', 'Gianluca Carbone, Digital Strategist. Mi occupo di strategia digitale, sviluppo web e performance marketing per aziende e professionisti che vogliono crescere online.')
+@section('og_image', asset('img/og-about.jpg'))
+
 @section('content')
     <section style="padding: 60px 40px;">
         <p style="text-transform: uppercase; font-size: 12px; letter-spacing: 2px; color:#777;">

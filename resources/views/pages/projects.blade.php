@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Progetti | GL Carbone Digital Strategist')
+@section('meta_description', 'Portfolio di Gianluca Carbone: siti web, branding, advertising e strategia digitale. Progetti pensati per dare forza e credibilità alla presenza online.')
 
 @section('content')
     <section class="masonry-gallery-page">

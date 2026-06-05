@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Contatti | GL Carbone Digital Strategist')
-
+@section('meta_description', 'Contatta Gianluca Carbone per sviluppare il tuo sito web o impostare una strategia digitale efficace. Rispondo entro 24 ore.')
 @section('content')
     <section class="contact-page">
         <div class="site-wrap">

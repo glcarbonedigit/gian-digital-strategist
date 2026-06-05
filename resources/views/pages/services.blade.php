@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('title', 'Servizi | GL Carbone Digital Strategist')
-
+@section('meta_description', 'Strategia digitale, siti web, advertising e SEO per aziende e professionisti. Costruisco progetti digitali chiari, performanti e orientati al risultato.')
+@section('og_image', asset('img/og-services.jpg'))
 @section('content')
     <section class="services-page-v2">
         <div class="site-wrap">
