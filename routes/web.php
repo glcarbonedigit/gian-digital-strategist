@@ -22,6 +22,38 @@ Route::get('/progetti/{project:slug}', [ProjectController::class, 'show'])->name
 Route::get('/contatti', [ContactController::class, 'show'])->name('contact');
 Route::post('/contatti', [ContactController::class, 'send'])->name('contact.send');
 
+// Sitemap
+Route::get('/sitemap.xml', function () {
+    $sitemap = Spatie\Sitemap\Sitemap::create()
+        ->add(Spatie\Sitemap\Tags\Url::create('https://glcarbone.it')
+            ->setChangeFrequency('weekly')
+            ->setPriority(1.0))
+        ->add(Spatie\Sitemap\Tags\Url::create('https://glcarbone.it/chi-sono')
+            ->setChangeFrequency('monthly')
+            ->setPriority(0.8))
+        ->add(Spatie\Sitemap\Tags\Url::create('https://glcarbone.it/servizi')
+            ->setChangeFrequency('monthly')
+            ->setPriority(0.8))
+        ->add(Spatie\Sitemap\Tags\Url::create('https://glcarbone.it/progetti')
+            ->setChangeFrequency('weekly')
+            ->setPriority(0.9))
+        ->add(Spatie\Sitemap\Tags\Url::create('https://glcarbone.it/contatti')
+            ->setChangeFrequency('monthly')
+            ->setPriority(0.7));
+
+    \App\Models\Project::all()->each(function ($project) use ($sitemap) {
+        $sitemap->add(
+            Spatie\Sitemap\Tags\Url::create("https://glcarbone.it/progetti/{$project->slug}")
+                ->setLastModificationDate($project->updated_at)
+                ->setChangeFrequency('monthly')
+                ->setPriority(0.8)
+        );
+    });
+
+    return response($sitemap->render(), 200)
+        ->header('Content-Type', 'application/xml');
+})->name('sitemap');
+
 /*
 |--------------------------------------------------------------------------
 | Dashboard redirect
