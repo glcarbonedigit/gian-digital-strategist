@@ -8844,3 +8844,16 @@ body.home-brand-active.site-body {
         height: 44px !important;
     }
 }
+/* =========================================
+   SIDEBAR FOOTER — PREVENTIVO SEMPRE VISIBILE
+========================================= */
+.sidebar__inner {
+    justify-content: space-between !important;
+}
+
+.sidebar__footer {
+    padding: 24px 0 0;
+    margin-top: auto;
+    border-top: 1px solid var(--line);
+    flex-shrink: 0;
+}
