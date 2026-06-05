@@ -34,5 +34,8 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
-
+'recaptcha' => [
+    'site_key'   => env('6LewRA4tAAAAAIHR3eyQH2pQEy9nZV-IM37l-Kk8'),
+    'secret_key' => env('6LewRA4tAAAAAAueviaa3IPnIHvzfmm8DIkA9SDB'),
+],
 ];

@@ -66,67 +66,86 @@
                         </p>
 
                         @if (session('success'))
-    <div class="contact-form-alert contact-form-alert--success">
-        {{ session('success') }}
-    </div>
-@endif
+                            <div class="contact-form-alert contact-form-alert--success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
 
-@if ($errors->any())
-    <div class="contact-form-alert contact-form-alert--error">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+                        @if ($errors->any())
+                            <div class="contact-form-alert contact-form-alert--error">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
 
-        <form class="contact-form" method="POST" action="{{ route('contact.send') }}">
-            @csrf
+                        <form class="contact-form" method="POST" action="{{ route('contact.send') }}">
+                            @csrf
+                            <input type="hidden" name="recaptcha_token" id="recaptcha_token">
 
-            <div class="contact-form__grid">
-                <div class="contact-form__group">
-                    <label for="name">Nome</label>
-                    <input type="text" id="name" name="name" value="{{ old('name') }}" placeholder="Il tuo nome">
-                </div>
+                            <div class="contact-form__grid">
+                                <div class="contact-form__group">
+                                    <label for="name">Nome</label>
+                                    <input type="text" id="name" name="name" value="{{ old('name') }}" placeholder="Il tuo nome">
+                                </div>
 
-                <div class="contact-form__group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="La tua email">
-                </div>
-            </div>
+                                <div class="contact-form__group">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="La tua email">
+                                </div>
+                            </div>
 
-            <div class="contact-form__group">
-                <label for="phone">Telefono</label>
-                <input type="text" id="phone" name="phone" value="{{ old('phone') }}" placeholder="Il tuo numero">
-            </div>
+                            <div class="contact-form__group">
+                                <label for="phone">Telefono</label>
+                                <input type="text" id="phone" name="phone" value="{{ old('phone') }}" placeholder="Il tuo numero">
+                            </div>
 
-            <div class="contact-form__group">
-                <label for="service">Servizio di interesse</label>
-                <select id="service" name="service">
-                    <option value="">Seleziona un servizio</option>
-                    <option value="strategia" @selected(old('service') === 'strategia')>Strategia digitale</option>
-                    <option value="siti" @selected(old('service') === 'siti')>Siti web e landing page</option>
-                    <option value="advertising" @selected(old('service') === 'advertising')>Advertising e performance marketing</option>
-                    <option value="seo" @selected(old('service') === 'seo')>SEO e ottimizzazione</option>
-                    <option value="altro" @selected(old('service') === 'altro')>Altro</option>
-                </select>
-            </div>
+                            <div class="contact-form__group">
+                                <label for="service">Servizio di interesse</label>
+                                <select id="service" name="service">
+                                    <option value="">Seleziona un servizio</option>
+                                    <option value="strategia" @selected(old('service') === 'strategia')>Strategia digitale</option>
+                                    <option value="siti" @selected(old('service') === 'siti')>Siti web e landing page</option>
+                                    <option value="advertising" @selected(old('service') === 'advertising')>Advertising e performance marketing</option>
+                                    <option value="seo" @selected(old('service') === 'seo')>SEO e ottimizzazione</option>
+                                    <option value="altro" @selected(old('service') === 'altro')>Altro</option>
+                                </select>
+                            </div>
 
-            <div class="contact-form__group">
-                <label for="message">Messaggio</label>
-                <textarea id="message" name="message" rows="6" placeholder="Descrivi il progetto, gli obiettivi o quello di cui hai bisogno">{{ old('message') }}</textarea>
-            </div>
+                            <div class="contact-form__group">
+                                <label for="message">Messaggio</label>
+                                <textarea id="message" name="message" rows="6" placeholder="Descrivi il progetto, gli obiettivi o quello di cui hai bisogno">{{ old('message') }}</textarea>
+                            </div>
 
-            <div class="contact-form__actions">
-                <button type="submit" class="btn-main btn-main--dark">
-                    Invia richiesta
-                </button>
-            </div>
-        </form>
+                            <div class="contact-form__actions">
+                                <button type="submit" class="btn-main btn-main--dark">
+                                    Invia richiesta
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </section>
         </div>
     </section>
+
+@push('scripts')
+<script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site_key') }}"></script>
+<script>
+    grecaptcha.ready(function () {
+        document.querySelector('.contact-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const form = this;
+            grecaptcha.execute('{{ config('services.recaptcha.site_key') }}', { action: 'contact' })
+                .then(function (token) {
+                    document.getElementById('recaptcha_token').value = token;
+                    form.submit();
+                });
+        });
+    });
+</script>
+@endpush
+
 @endsection
