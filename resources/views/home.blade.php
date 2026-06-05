@@ -1,5 +1,6 @@
 @extends('layouts.app')
-
+@section('title', 'GL Carbone | Digital Strategist — Siti web, SEO e Marketing')
+@section('meta_description', 'Gianluca Carbone, Digital Strategist in Sicilia. Progetto siti web, strategie digitali e campagne marketing per far crescere la tua presenza online.')
 @section('content')
 @php
     $heroMain = $featuredProjects->get(0);
