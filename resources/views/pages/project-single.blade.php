@@ -60,7 +60,7 @@
                 </div>
                 <div class="case-section__body">
                     <div class="case-section__bar"></div>
-                    <div class="case-section__text">{!! nl2br(e($project->challenge)) !!}</div>
+                    <div class="case-section__text">{!! $project->challenge !!}</div>
                 </div>
             </section>
             @php $sectionNum++; @endphp
@@ -74,7 +74,7 @@
                 </div>
                 <div class="case-section__body">
                     <div class="case-section__bar"></div>
-                    <div class="case-section__text">{!! nl2br(e($project->approach)) !!}</div>
+                    <div class="case-section__text">{!! $project->approach !!}</div>
                 </div>
             </section>
             @php $sectionNum++; @endphp
@@ -88,7 +88,7 @@
                 </div>
                 <div class="case-section__body">
                     <div class="case-section__bar"></div>
-                    <div class="case-section__text">{!! nl2br(e($project->result)) !!}</div>
+                    <div class="case-section__text">{!! $project->result !!}</div>
                 </div>
             </section>
             @php $sectionNum++; @endphp
@@ -102,7 +102,7 @@
                 </div>
                 <div class="case-section__body">
                     <div class="case-section__bar"></div>
-                    <div class="case-section__text">{!! nl2br(e($project->content)) !!}</div>
+                    <div class="case-section__text">{!! $project->content !!}</div>
                 </div>
             </section>
         @endif
