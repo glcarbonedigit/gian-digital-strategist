@@ -142,7 +142,7 @@
 
 {{-- TinyMCE WYSIWYG --}}
 @push('scripts')
-<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="https://cdn.tiny.cloud/1/b3zwfah914vi0wcjnwxkjz75r9fg5l0gttb6l9nipbrsueg0/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
     tinymce.init({
         selector: 'textarea.wysiwyg',
